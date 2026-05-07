@@ -1,0 +1,111 @@
+<mat-sidenav-container class="layout">
+  <mat-sidenav
+    #sidenav
+    class="sidenav"
+    [mode]="isDesktop ? 'side' : 'over'"
+    [opened]="isDesktop ? isSidebarOpened : isMobileSidebarOpened"
+    (openedChange)="!isDesktop && (isMobileSidebarOpened = $event)">
+
+    <div class="brand">
+      <mat-icon class="logo">content_cut</mat-icon>
+      <div class="brand-text">
+        <span class="title">Barber Admin</span>
+        <span class="subtitle">Panel de control</span>
+      </div>
+    </div>
+
+    <mat-nav-list>
+      <a class="nav-item" mat-list-item routerLink="/internal/inicio" routerLinkActive="active" (click)="!isDesktop && sidenav.close()">
+        <mat-icon>dashboard</mat-icon>
+        <span>Dashboard</span>
+      </a>
+
+      <a class="nav-item" mat-list-item routerLink="/internal/citas" routerLinkActive="active" (click)="!isDesktop && sidenav.close()">
+        <mat-icon>event</mat-icon>
+        <span>Citas</span>
+      </a>
+
+      <a class="nav-item" mat-list-item routerLink="/internal/clientes" routerLinkActive="active" (click)="!isDesktop && sidenav.close()">
+        <mat-icon>group</mat-icon>
+        <span>Clientes</span>
+      </a>
+
+      <a class="nav-item" mat-list-item routerLink="/internal/barberos" routerLinkActive="active" (click)="!isDesktop && sidenav.close()">
+        <mat-icon>content_cut</mat-icon>
+        <span>Barberos</span>
+      </a>
+
+      <a class="nav-item" mat-list-item routerLink="/internal/servicios" routerLinkActive="active" (click)="!isDesktop && sidenav.close()">
+        <mat-icon>build</mat-icon>
+        <span>Servicios</span>
+      </a>
+
+      <a class="nav-item" mat-list-item routerLink="/internal/premios" routerLinkActive="active" (click)="!isDesktop && sidenav.close()">
+        <mat-icon>redeem</mat-icon>
+        <span>Premios</span>
+      </a>
+
+      <button class="nav-item finance-parent" mat-list-item type="button" (click)="toggleFinanceMenu()">
+        <div  class="finance-parent-left">
+          <mat-icon>account_balance_wallet</mat-icon>
+          <span>Finanzas</span>
+        </div>
+        <mat-icon style="    position: absolute;
+    top: 30%;">{{ financeMenuOpen ? 'expand_less' : 'expand_more' }}</mat-icon>
+      </button>
+
+      <div class="finance-children" *ngIf="financeMenuOpen">
+        <a class="nav-item sub-item" mat-list-item routerLink="/internal/finanzas/ingresos" routerLinkActive="active" (click)="!isDesktop && sidenav.close()">
+          <mat-icon>content_cut</mat-icon>
+          <span>Ingresos</span>
+        </a>
+
+        <a class="nav-item sub-item" mat-list-item routerLink="/internal/finanzas/egresos" routerLinkActive="active" (click)="!isDesktop && sidenav.close()">
+          <mat-icon>shopping_bag</mat-icon>
+          <span>Egresos</span>
+        </a>
+
+        <a class="nav-item sub-item" mat-list-item routerLink="/internal/finanzas/egresos-fijos" routerLinkActive="active" (click)="!isDesktop && sidenav.close()">
+          <mat-icon>payments</mat-icon>
+          <span>Egresos Fijos Barberia</span>
+        </a>
+
+        <a class="nav-item sub-item" mat-list-item routerLink="/internal/finanzas/propinas" routerLinkActive="active" (click)="!isDesktop && sidenav.close()">
+          <mat-icon>volunteer_activism</mat-icon>
+          <span>Control de Propinas</span>
+        </a>
+
+        <a class="nav-item sub-item" mat-list-item routerLink="/internal/finanzas/reportes" routerLinkActive="active" (click)="!isDesktop && sidenav.close()">
+          <mat-icon>analytics</mat-icon>
+          <span>Reporte General</span>
+        </a>
+      </div>
+
+      <a class="nav-item" mat-list-item (click)="logout()">
+        <mat-icon>logout</mat-icon>
+        <span>Logout</span>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar class="toolbar">
+      <button mat-icon-button class="menu-btn" (click)="toggleSidenav(sidenav)">
+        <mat-icon>menu</mat-icon>
+      </button>
+
+      <div class="user-info">
+        <span class="name">{{ user?.user?.name }}</span>
+        <span class="email">{{ user?.user?.email }}</span>
+      </div>
+
+      <div class="avatar">
+        {{ getInitial() }}
+      </div>
+    </mat-toolbar>
+
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

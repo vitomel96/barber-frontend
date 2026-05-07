@@ -1,0 +1,27 @@
+<h2 mat-dialog-title>Cierre asistido</h2>
+
+<mat-dialog-content [formGroup]="form" class="content">
+  <p>
+    Finaliza esta cita registrando método de pago y propina del barbero.
+  </p>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Método de pago</mat-label>
+    <mat-select formControlName="payment_method">
+      <mat-option *ngFor="let method of paymentMethods" [value]="method">
+        {{ method }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Propina</mat-label>
+    <input matInput type="number" formControlName="tip" min="0" />
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-stroked-button (click)="close()">Cancelar</button>
+  <button mat-raised-button color="primary" (click)="save()">Cerrar cita</button>
+</mat-dialog-actions>
+

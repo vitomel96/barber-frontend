@@ -1,0 +1,140 @@
+<mat-card class="clients-card">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="title">
+      <h2>Clientes</h2>
+      <span class="subtitle">Gestión de clientes registrados</span>
+    </div>
+
+    <button
+      mat-raised-button
+      color="primary"
+      style="color:#fff"
+      (click)="agregarCliente()"
+    >
+      <mat-icon>add</mat-icon>
+      Nuevo Cliente
+    </button>
+  </div>
+
+  <!-- BUSCADOR -->
+  <div class="search-box">
+    <mat-icon>search</mat-icon>
+
+    <input
+      type="text"
+      placeholder="Buscar cliente por nombre, apellido o teléfono..."
+      [(ngModel)]="searchText"
+      (input)="filtrarClientes()"
+    />
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-grid">
+
+    <div class="stat-card">
+      <div class="top">
+        <span>Total Clientes</span>
+        <mat-icon class="icon blue">groups</mat-icon>
+      </div>
+
+      <h2>{{ filteredClients.length }}</h2>
+      <p class="sub">+{{ nuevosEsteMes }} este mes</p>
+    </div>
+
+    <div class="stat-card">
+      <div class="top">
+        <span>Nuevos Clientes</span>
+        <mat-icon class="icon purple">person_add</mat-icon>
+      </div>
+
+      <h2>{{ nuevosEsteMes }}</h2>
+      <p class="sub">Este mes</p>
+    </div>
+
+  </div>
+
+  <!-- GRID -->
+  <div class="table-container">
+    <div class="clients-grid">
+
+      <div
+        class="client-card"
+        *ngFor="let c of filteredClients"
+      >
+
+        <div class="top">
+          <div class="left">
+
+            <div class="avatar">
+              {{ c?.name?.charAt(0) }}{{ c?.last_name?.charAt(0) }}
+            </div>
+
+            <div class="info">
+              <h3>{{ c?.name }} {{ c?.last_name }}</h3>
+
+              <div class="contact">
+                <span>📧 {{ c?.email }}</span>
+                <span>📞 {{ c?.phone }}</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="stats">
+          <div>
+            <span class="label">Visitas</span>
+            <strong>{{ c?.visits || 0 }}</strong>
+          </div>
+
+          <div>
+            <span class="label">Última visita</span>
+            <strong>{{ c?.last_visit | date:'dd MMM yyyy' }}</strong>
+          </div>
+
+          <div>
+            <span class="label">Puntos</span>
+            <strong>{{ c?.points || 0 }}</strong>
+          </div>
+        </div>
+
+        <div class="actions">
+
+          <button
+            mat-stroked-button
+            style="color:#000"
+            (click)="editar(c)"
+          >
+            Editar
+          </button>
+
+          <button
+            mat-stroked-button
+            style="color:#000"
+            [disabled]="!c?.has_history"
+            (click)="openHistory(c)"
+          >
+            Ver Historial
+          </button>
+
+          <button
+            mat-raised-button
+            color="primary"
+            style="color:#fff"
+            (click)="openNewAppointment(c)"
+          >
+            Nueva Cita
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+</mat-card>

@@ -1,0 +1,316 @@
+.page-container {
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+
+  h2 {
+    margin: 0;
+    font-weight: 600;
+  }
+}
+
+.table-card {
+  padding: 16px;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.cell-primary {
+  font-weight: 500;
+}
+
+mat-header-cell {
+  font-weight: 600;
+  background-color: #fafafa;
+}
+
+mat-row:hover {
+  background: #f5f5f5;
+}
+
+/* Chips personalizados */
+.chip-pending {
+  background-color: #ffe082;
+  color: #000;
+}
+
+.chip-progress {
+  background-color: #64b5f6;
+  color: white;
+}
+
+.chip-done {
+  background-color: #81c784;
+  color: white;
+}
+
+.chip-cancel {
+  background-color: #ef5350;
+  color: white;
+}
+
+/* Empty state */
+.empty-state {
+  text-align: center;
+  padding: 40px;
+  color: #999;
+
+  mat-icon {
+    font-size: 40px;
+    margin-bottom: 8px;
+  }
+}
+.page-container {
+  padding: 20px;
+}
+
+/* HEADER */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.header p {
+  margin: 0;
+  color: #6b7280;
+}
+
+/* BOTONES */
+.header-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.closure-alert {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #fff7ed;
+  color: #9a3412;
+  border: 1px solid #fdba74;
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+}
+
+/* LISTA */
+.appointments {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* CARD */
+.appointment-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 16px;
+  transition: all 0.2s ease;
+}
+
+.appointment-card:hover {
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  transform: translateY(-2px);
+}
+
+/* HORA */
+.time-box {
+  width: 80px;
+  height: 70px;
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  border-radius: 12px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.time-box span {
+  font-size: 12px;
+}
+
+.time-box strong {
+  font-size: 16px;
+}
+
+/* INFO */
+.info {
+  flex: 1;
+  margin-left: 16px;
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.top h3 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.info p {
+  margin: 4px 0;
+  color: #374151;
+}
+
+.info small {
+  color: #6b7280;
+}
+
+.detail-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 8px 0;
+  color: #374151;
+  font-size: 13px;
+}
+
+/* STATUS */
+.status {
+  padding: 3px 10px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.status.confirmada {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.status.pendiente {
+  background: #fef9c3;
+  color: #92400e;
+}
+
+.status.pendiente-cierre {
+  background: #ffedd5;
+  color: #9a3412;
+}
+
+.status.progreso {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.status.cancelada {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+/* ACCIONES */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.quick-button {
+  background: #ffffff;
+}
+button[color="primary"] {
+  color: white;
+  background: linear-gradient(90deg, #f97316, #fb923c);
+}
+.search-box{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  background:#f8f9fb;
+  border:1px solid #e6e8ec;
+  border-radius:14px;
+  padding:12px 16px;
+  margin:18px 0;
+}
+
+.search-box input{
+  border:none;
+  outline:none;
+  background:transparent;
+  width:100%;
+  font-size:14px;
+}
+@media (max-width: 768px) {
+
+  /* CONTENEDOR */
+  .page-container {
+    padding: 12px;
+  }
+
+  /* HEADER STACK */
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  /* BOTONES EN COLUMNA */
+  .header-actions {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .header-actions button,
+  .header-actions a {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* CARD STACK */
+  .appointment-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  /* TIME FULL WIDTH */
+  .time-box {
+    width: 100%;
+    height: 60px;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  /* INFO */
+  .info {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  /* ACTIONS FULL WIDTH */
+  .actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .actions button {
+    flex: 1 1 calc(50% - 8px);
+  }
+
+}

@@ -1,0 +1,80 @@
+<div class="login-wrapper">
+
+  <div class="login-card">
+
+    <!-- LADO IZQUIERDO -->
+    <div class="login-left">
+
+      <h2>Panel Administrativo</h2>
+      <p>
+        Gestiona citas, barberos, clientes y servicios
+        desde un solo lugar.
+      </p>
+
+      <div class="features">
+        <div>✔ Gestión de citas</div>
+        <div>✔ Control de horarios</div>
+        <div>✔ Reportes y métricas</div>
+      </div>
+    </div>
+
+    <!-- LADO DERECHO -->
+    <div class="login-right">
+
+      <h3>Bienvenido</h3>
+      <p class="subtitle">Ingresa tus credenciales</p>
+
+      <form (ngSubmit)="onLogin()" novalidate>
+
+        <!-- EMAIL -->
+        <div class="form-group">
+          <label>Correo</label>
+          <input
+            type="email"
+            placeholder="correo@barberia.com"
+            [(ngModel)]="username"
+            name="username"
+            required
+            #usernameInput="ngModel"
+          />
+          <small *ngIf="usernameInput.invalid && usernameInput.touched">
+            El correo es obligatorio
+          </small>
+        </div>
+
+        <!-- PASSWORD -->
+        <div class="form-group">
+          <label>Contraseña</label>
+          <div class="password-wrapper">
+            <input
+              [type]="showPassword ? 'text' : 'password'"
+              [(ngModel)]="password"
+              name="password"
+              required
+              #passwordInput="ngModel"
+            />
+            <span (click)="togglePasswordVisibility()">
+              {{ showPassword ? '👁' : '👁‍🗨' }}
+            </span>
+          </div>
+          <small *ngIf="passwordInput.invalid && passwordInput.touched">
+            La contraseña es obligatoria
+          </small>
+        </div>
+
+        <p class="error" *ngIf="loginError">{{ loginError }}</p>
+
+        <button
+          type="submit"
+          [disabled]="!usernameInput.valid || !password"
+        >
+          Iniciar Sesión
+        </button>
+
+      </form>
+
+    </div>
+
+  </div>
+
+</div>

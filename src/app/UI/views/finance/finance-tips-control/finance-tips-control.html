@@ -1,0 +1,65 @@
+<div class="tips-page">
+  <div class="header">
+    <div>
+      <h2>Control de Propinas</h2>
+      <p>Seguimiento diario y mensual por barbero</p>
+    </div>
+
+    <div class="header-actions">
+      <mat-form-field appearance="outline">
+        <mat-label>Mes</mat-label>
+        <input matInput [matDatepicker]="monthPicker" [value]="selectedMonthDate" readonly />
+        <mat-datepicker-toggle matSuffix [for]="monthPicker"></mat-datepicker-toggle>
+        <mat-datepicker
+          #monthPicker
+          startView="multi-year"
+          (monthSelected)="onMonthSelected($event, monthPicker)"
+          panelClass="month-picker">
+        </mat-datepicker>
+      </mat-form-field>
+
+      <button mat-stroked-button (click)="exportExcel()" [disabled]="!data">Exportar Excel</button>
+      <button mat-stroked-button (click)="exportPdf()" [disabled]="!data">Exportar PDF</button>
+    </div>
+  </div>
+
+  <div class="kpi-grid" *ngIf="data">
+    <mat-card class="kpi">
+      <span>Propinas de hoy</span>
+      <strong>${{ data.totals.tipsToday | number:'1.0-0' }}</strong>
+    </mat-card>
+    <mat-card class="kpi">
+      <span>Propinas del mes</span>
+      <strong>${{ data.totals.tipsMonth | number:'1.0-0' }}</strong>
+    </mat-card>
+  </div>
+
+  <div class="panel-grid" *ngIf="data">
+    <mat-card class="panel">
+      <h3>Propinas por barbero (hoy)</h3>
+      <div class="row" *ngFor="let item of data.byBarberToday">
+        <span>{{ item.barberName }}</span>
+        <strong>${{ item.totalTips | number:'1.0-0' }}</strong>
+      </div>
+      <div class="empty" *ngIf="data.byBarberToday.length === 0">Sin propinas hoy.</div>
+    </mat-card>
+
+    <mat-card class="panel">
+      <h3>Propinas por barbero (mes)</h3>
+      <div class="row" *ngFor="let item of data.byBarberMonth">
+        <span>{{ item.barberName }}</span>
+        <strong>${{ item.totalTips | number:'1.0-0' }}</strong>
+      </div>
+      <div class="empty" *ngIf="data.byBarberMonth.length === 0">Sin propinas en el mes.</div>
+    </mat-card>
+  </div>
+
+  <mat-card class="panel" *ngIf="data">
+    <h3>Propinas diarias del mes</h3>
+    <div class="row" *ngFor="let item of data.dailyMonth">
+      <span>{{ item.date }}</span>
+      <strong>${{ item.totalTips | number:'1.0-0' }}</strong>
+    </div>
+    <div class="empty" *ngIf="data.dailyMonth.length === 0">No hay propinas registradas.</div>
+  </mat-card>
+</div>

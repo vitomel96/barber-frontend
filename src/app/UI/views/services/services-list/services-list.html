@@ -1,0 +1,59 @@
+﻿<div class="services-container">
+
+  <div class="header">
+    <div>
+      <h2>Servicios</h2>
+      <p class="subtitle">Gestiona tu catalogo de servicios</p>
+    </div>
+
+    <button mat-raised-button color="primary" (click)="openCreateDialog()">
+      <mat-icon>add</mat-icon>
+      Nuevo Servicio
+    </button>
+  </div>
+
+  <div class="services-grid">
+
+    <div class="service-card" *ngFor="let s of services">
+
+      <div class="top">
+        <div>
+          <h3>{{ s.name }}</h3>
+          <span class="desc">Servicio profesional</span>
+        </div>
+
+        <button mat-icon-button color="primary" (click)="openEditDialog(s)">
+          <mat-icon>build</mat-icon>
+        </button>
+      </div>
+
+      <div class="info">
+        <span>{{ s.duration }} min</span>
+        <span>${{ s.price | number }}</span>
+        <span>Comision barbero {{ s.barber_commission_percent || 0 }}%</span>
+        <span>{{ s.earning_points }} pts</span>
+      </div>
+
+      <div class="progress">
+        Popularidad
+        <div class="bar" style="margin-top: 10px;">
+          <div class="fill" [style.width.%]="s.popularity || 0"></div>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; padding: 10px 10px;">
+        <div style="display: flex; flex-direction: column; gap: 4px;">
+          <span>Citas/mes</span>
+          <span>{{ s.appointmentsMonth || 0 }}</span>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 4px;">
+          <span>Ingresos</span>
+          <span class="price-color">${{ s.monthlyRevenue || 0 | currency:'COP ':'symbol' }}</span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

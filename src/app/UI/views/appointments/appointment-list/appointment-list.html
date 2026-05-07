@@ -1,0 +1,167 @@
+<div class="page-container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div>
+      <h2 style="margin-bottom:10px">📅 Citas</h2>
+      <p>Gestiona todas las pendientes</p>
+    </div>
+
+    <div class="header-actions">
+
+      <a mat-stroked-button routerLink="/internal/citas/calendario">
+        <mat-icon>calendar_month</mat-icon>
+        Ver Calendario
+      </a>
+
+      <a mat-stroked-button routerLink="/internal/citas/historial">
+        <mat-icon>history</mat-icon>
+        Ver Historial
+      </a>
+
+      <button mat-raised-button color="primary" (click)="abrirNuevaCita()">
+        <mat-icon>add</mat-icon>
+        Nueva Cita
+      </button>
+
+    </div>
+  </div>
+
+  <!-- BUSCADOR -->
+  <div class="search-box">
+    <mat-icon>search</mat-icon>
+
+    <input
+      type="text"
+      placeholder="Buscar por cliente, teléfono o barbero..."
+      [(ngModel)]="searchText"
+      (input)="filtrarCitas()"
+    />
+  </div>
+
+  <div class="closure-alert" *ngIf="pendingClosureAlert.hasAlert">
+    <mat-icon>warning</mat-icon>
+    <span>
+      Faltan {{ pendingClosureAlert.minutesToClose }} min para cerrar
+      ({{ pendingClosureAlert.closingTime | timeFormat }}).
+      Hay {{ pendingClosureAlert.pendingCount }} cita(s) pendiente(s) de cierre.
+    </span>
+  </div>
+
+  <!-- LISTA -->
+  <div class="appointments">
+
+    <div
+      class="appointment-card"
+      *ngFor="let c of filteredAppointments"
+    >
+
+      <div class="time-box">
+        <span>Hora</span>
+        <strong>{{ c.hour | timeFormat }}</strong>
+      </div>
+
+      <div class="info">
+
+        <div class="top">
+          <h3>{{ c.client.name }} {{ c.client.last_name }}</h3>
+
+          <span
+            class="status"
+            [ngClass]="{
+              'confirmada': c.status === appointentStatus.CONFIRMED,
+              'finalizada': c.status === appointentStatus.COMPLETED,
+              'pendiente': c.status === appointentStatus.PENDING,
+              'pendiente-cierre': c.status === appointentStatus.PENDING_CLOSURE,
+              'cancelada': c.status === appointentStatus.CANCELLED
+            }"
+          >
+            {{ getStatusLabel(c.status) }}
+          </span>
+        </div>
+
+        <p>{{ c.service.name }}</p>
+
+        <small>
+          Barbero:
+          {{ c.barber.name }} {{ c.barber.last_name }}
+        </small>
+
+        <div class="detail-row">
+          <span>Fecha: {{ formatDate(c.date) }}</span>
+          <span>Telefono: {{ c.client.phone || 'No registrado' }}</span>
+          <span>Duracion: {{ c.duration }} min</span>
+          <span>Precio: ${{ c.price | number:'1.0-0' }}</span>
+        </div>
+
+        <small *ngIf="c.notes">
+          Nota: {{ c.notes }}
+        </small>
+
+      </div>
+
+      <!-- ACCIONES -->
+      <div class="actions">
+
+        <button
+          mat-stroked-button
+          class="quick-button"
+          (click)="recordarCita(c)">
+          <mat-icon>content_copy</mat-icon>
+          Recordar
+        </button>
+
+        <button
+          mat-stroked-button
+          class="quick-button"
+          [disabled]="!c.client.phone"
+          (click)="abrirWhatsApp(c)">
+          <mat-icon>chat</mat-icon>
+          WhatsApp
+        </button>
+
+        <button
+          mat-stroked-button
+          color="primary"
+          *ngIf="c.status !== appointentStatus.COMPLETED && c.status !== appointentStatus.CANCELLED"
+          (click)="abrirEditarCita(c)">
+          Editar
+        </button>
+
+        <button
+          mat-stroked-button
+          color="primary"
+          (click)="openDetail(c)">
+          Ver Detalles
+        </button>
+
+        <button
+          mat-stroked-button
+          color="primary"
+          *ngIf="c.status === appointentStatus.PENDING_CLOSURE"
+          (click)="abrirCierreAsistido(c)">
+          Cierre asistido
+        </button>
+
+        <button
+          mat-stroked-button
+          color="primary"
+          *ngIf="c.status === appointentStatus.PENDING"
+          (click)="cambiarEstado(c, appointentStatus.PENDING_CLOSURE)">
+          Marcar pte cierre
+        </button>
+
+        <button
+          mat-icon-button
+          color="warn"
+          (click)="cambiarEstado(c, appointentStatus.CANCELLED)">
+          <mat-icon>cancel</mat-icon>
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

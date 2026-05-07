@@ -1,0 +1,20 @@
+.loading-screen-wrapper{left:0!important;top:0!important;z-index:1000000!important;width:100%!important;height:100%!important;position:fixed!important;background-color:rgba(0,0,0,.4)!important;visibility:visible!important;transition:visibility,opacity .4s linear!important;display:flex;align-items:center;justify-content:center;cursor:wait!important}
+.loader{animation:1s infinite rotate;height:50px;width:50px}
+.loader:after,.loader:before{border-radius:50%;content:"";display:block;height:20px;width:20px}
+.loader:before{animation:1s infinite ball1;background-color:#AF3544;box-shadow:30px 0 0 #F4F4F4;margin-bottom:10px}
+.loader:after{animation:1s infinite ball2;background-color:#F4F4F4;box-shadow:30px 0 0 #AF3544}
+@keyframes rotate {
+  0%{transform:rotate(0) scale(.8)}
+  50%{transform:rotate(360deg) scale(1.2)}
+  100%{transform:rotate(720deg) scale(.8)}
+}
+@keyframes ball1 {
+  0%{box-shadow:30px 0 0 #F4F4F4}
+  50%{box-shadow:0 0 0 #F4F4F4;margin-bottom:0;transform:translate(15px,15px)}
+  100%{box-shadow:30px 0 0 #F4F4F4;margin-bottom:10px}
+}
+@keyframes ball2 {
+  0%{box-shadow:30px 0 0 #AF3544}
+  50%{box-shadow:0 0 0 #AF3544;margin-top:-20px;transform:translate(15px,15px)}
+  100%{box-shadow:30px 0 0 #AF3544;margin-top:0}
+}

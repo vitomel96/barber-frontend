@@ -1,0 +1,196 @@
+.barbers-card {
+  padding: 1.5rem;
+  border-radius: 16px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.subtitle {
+  font-size: 0.85rem;
+  color: #777;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 0;
+}
+
+.error {
+  text-align: center;
+  color: #d32f2f;
+  padding: 1rem;
+}
+
+.barber-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #af3544, #df5667);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+
+.name {
+  font-weight: 500;
+}
+
+.email {
+  font-size: 0.8rem;
+  color: #777;
+}
+/* GRID */
+.barbers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+  gap: 16px;
+}
+
+/* CARD */
+.barber-card {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 16px;
+  transition: 0.2s ease;
+}
+
+.barber-card:hover {
+  box-shadow: 0 12px 30px rgba(0,0,0,0.05);
+}
+
+/* TOP */
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.left {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+/* AVATAR */
+.avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #f97316;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  position: relative;
+}
+
+/* ONLINE DOT */
+.status-dot {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.status-dot.active {
+  background: #22c55e;
+}
+
+.status-dot.inactive {
+  background: #9ca3af;
+}
+
+/* INFO */
+.specialty {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+/* RATING */
+.rating {
+  background: #fef3c7;
+  padding: 4px 8px;
+  border-radius: 10px;
+  font-size: 13px;
+}
+
+/* STATS */
+.stats {
+  display: flex;
+  justify-content: space-between;
+  margin: 14px 0;
+}
+
+.stats span {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.stats strong {
+  display: block;
+  font-size: 16px;
+}
+
+.money {
+  color: #16a34a;
+}
+
+/* PROGRESS */
+.progress .label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+
+.bar {
+  height: 6px;
+  background: #e5e7eb;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.fill {
+  height: 100%;
+  background: #111827;
+}
+
+/* ACTIONS */
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.actions button {
+  flex: 1;
+  border-radius: 10px;
+}
+
+@media (max-width: 768px){
+  .barbers-grid{
+    grid-template-columns: inherit;
+  }
+}

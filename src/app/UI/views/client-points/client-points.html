@@ -1,0 +1,105 @@
+<div class="hero-container">
+
+  <div class="hero-overlay"></div>
+
+  <div class="hero-content">
+
+    <div class="brand">
+      <h1>LE BARBER CLUB</h1>
+      <span class="subtitle">Programa Exclusivo de Fidelización</span>
+    </div>
+
+    <mat-card class="loyalty-card">
+
+      <h2>Consulta tus puntos</h2>
+
+      <form [formGroup]="form">
+
+        <mat-form-field appearance="outline" class="full-width premium-input">
+          <mat-label>Número de teléfono</mat-label>
+          <input class="text-white"
+                 matInput
+                 formControlName="phone"
+                 placeholder="3001234567">
+        </mat-form-field>
+
+        <button mat-raised-button
+                class="gold-btn text-black"
+                (click)="getPoints()"
+                [disabled]="loading">
+          Consultar
+        </button>
+
+      </form>
+
+      <!-- PUNTOS -->
+      <div *ngIf="points !== null" class="points-section">
+
+        <div class="points-number">{{ points }}</div>
+        <div class="points-label">PUNTOS DISPONIBLES</div>
+
+      </div>
+
+      <!-- LISTA DE PREMIOS -->
+      <div *ngIf="points !== null && rewards.length > 0"
+           class="rewards-section">
+
+        <h3>Premios disponibles</h3>
+
+        <div class="reward-card"
+             *ngFor="let reward of rewards"
+             [class.disabled]="points < reward.points_required">
+
+          <div class="reward-info">
+            <div class="reward-name">
+              {{ reward.name }}
+            </div>
+
+            <div class="reward-points">
+              {{ reward.required_points }} puntos
+            </div>
+          </div>
+
+          <button mat-raised-button
+                  color="primary"
+                  (click)="redeem(reward)"
+                  [disabled]="points < reward.points_required">
+            Canjear
+          </button>
+
+        </div>
+
+      </div>
+
+  <!-- CÓDIGO GENERADO -->
+<div *ngIf="redeemCode" class="code-section">
+
+  <div class="code-container">
+
+    <div class="code-box">
+      {{ redeemCode }}
+    </div>
+
+    <button mat-icon-button
+            class="copy-btn"
+            (click)="copyCode()"
+            matTooltip="Copiar código">
+      <mat-icon>content_copy</mat-icon>
+    </button>
+
+  </div>
+
+  <small *ngIf="copied" class="copied-text">
+    Código copiado ✔
+  </small>
+
+  <small *ngIf="!copied">
+    Muéstralo en caja para validar tu premio
+  </small>
+
+</div>
+    </mat-card>
+
+  </div>
+
+</div>

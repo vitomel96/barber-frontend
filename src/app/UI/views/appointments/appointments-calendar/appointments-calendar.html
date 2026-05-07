@@ -1,0 +1,15 @@
+<div class="container">
+
+  <div class="toolbar">
+<select [(ngModel)]="selectedBarberId" (ngModelChange)="onBarberChange($event)">
+  <option value="" disabled selected>Seleccione barbero</option>
+  <option *ngFor="let barber of barbers" [value]="barber.id">
+    {{ barber.name }}
+  </option>
+</select>
+
+  </div>
+
+  <full-calendar #calendar [options]="calendarOptions"></full-calendar>
+
+</div>

@@ -1,0 +1,166 @@
+.layout {
+  height: 100vh;
+}
+
+.sidenav {
+  width: 260px;
+  background: #0f172a;
+  color: #e5e7eb;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 16px;
+  border-bottom: 1px solid #ffffff22;
+}
+
+.logo {
+  width: 40px;
+  height: 40px;
+  background: #f59e0b;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-weight: 700;
+  color: #fff;
+}
+
+.subtitle {
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+mat-nav-list .nav-item {
+  color: #dbeafe !important;
+  margin: 4px 8px;
+  border-radius: 8px;
+}
+
+mat-nav-list .nav-item mat-icon {
+  margin-right: 12px;
+  color: #fff;
+}
+
+mat-nav-list .nav-item span {
+  color: #fff;
+}
+
+mat-nav-list .nav-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+mat-nav-list .nav-item.active {
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+}
+
+.menu-section {
+  margin: 12px 16px 4px;
+  font-size: 12px;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: #94a3b8;
+}
+
+.sub-item {
+  margin-left: 18px;
+}
+
+.finance-parent {
+  width: calc(100% - 16px);
+  border: 0;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.finance-parent-left {
+  display: flex;
+  align-items: center;
+}
+
+.finance-children {
+  margin-bottom: 4px;
+}
+
+.toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #fff;
+  color: #111827;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+}
+
+.menu-btn {
+  margin-right: auto;
+  background: #f59e0b;
+  color: #fff;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.name {
+  color: #111827;
+  font-weight: 600;
+}
+
+.email {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #f59e0b;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+.content {
+  padding: 24px;
+  background: #f8fafc;
+  min-height: calc(100vh - 64px);
+}
+@media (min-width: 1024px) {
+  .menu-btn {
+   display: none;
+  }
+}
+@media (max-width: 768px) {
+  .sidenav {
+    width: 280px;
+  }
+
+  .toolbar {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 12px;
+  }
+}

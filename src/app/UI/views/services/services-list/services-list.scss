@@ -1,0 +1,91 @@
+/* CONTENEDOR */
+.services-container {
+  padding: 20px;
+}
+
+/* HEADER */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.subtitle {
+  color: #6b7280;
+  font-size: 13px;
+}
+
+/* GRID */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+}
+
+.price-color{
+    color: #2e7917;
+    font-weight: 600;
+}
+/* CARD */
+.service-card {
+  background: white; /* 👈 CAMBIO CLAVE */
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 16px;
+  transition: 0.2s ease;
+}
+.service-card:hover {
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  transform: translateY(-2px);
+}
+
+/* TOP */
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.top h3 {
+  margin: 0;
+}
+
+.desc {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+/* INFO */
+.info {
+  display: flex;
+  justify-content: space-between;
+  margin: 12px 0;
+  font-size: 13px;
+  color: #374151;
+}
+
+/* PROGRESS */
+.bar {
+  height: 6px;
+  background: #e5e7eb;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.fill {
+  height: 100%;
+  background: #f97316;
+}
+
+/* ACTIONS */
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.actions button {
+  flex: 1;
+  border-radius: 10px;
+}

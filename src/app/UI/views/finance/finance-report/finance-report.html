@@ -1,0 +1,62 @@
+<div class="report-page">
+  <div class="header">
+    <div>
+      <h2>Reporte Financiero General</h2>
+      <p>Ingresos - egresos para ver ganancias o pérdidas del mes</p>
+    </div>
+
+    <div class="header-actions">
+      <mat-form-field appearance="outline">
+        <mat-label>Mes</mat-label>
+        <input matInput [matDatepicker]="monthPicker" [value]="selectedMonthDate" readonly />
+        <mat-datepicker-toggle matSuffix [for]="monthPicker"></mat-datepicker-toggle>
+        <mat-datepicker
+          #monthPicker
+          startView="multi-year"
+          (monthSelected)="onMonthSelected($event, monthPicker)"
+          panelClass="month-picker">
+        </mat-datepicker>
+      </mat-form-field>
+      <button mat-stroked-button (click)="exportExcel()" [disabled]="!report">Exportar Excel</button>
+      <button mat-stroked-button (click)="exportPdf()" [disabled]="!report">Exportar PDF</button>
+    </div>
+  </div>
+
+  <div class="kpi-grid" *ngIf="report">
+    <mat-card class="kpi">
+      <span>Ingresos</span>
+      <strong>${{ report.summary.income | number:'1.0-0' }}</strong>
+    </mat-card>
+    <mat-card class="kpi">
+      <span>Egresos totales</span>
+      <strong>${{ report.summary.totalExpenses | number:'1.0-0' }}</strong>
+    </mat-card>
+    <mat-card class="kpi" [class.loss]="report.summary.net < 0">
+      <span>{{ report.summary.net >= 0 ? 'Ganancia neta' : 'Pérdida neta' }}</span>
+      <strong>${{ report.summary.net | number:'1.0-0' }}</strong>
+    </mat-card>
+    <mat-card class="kpi">
+      <span>Margen</span>
+      <strong>{{ report.metrics.margin | number:'1.0-1' }}%</strong>
+    </mat-card>
+  </div>
+
+  <div class="grid" *ngIf="report">
+    <mat-card class="panel">
+      <h3>Recomendaciones</h3>
+      <div class="recommendation" *ngFor="let rec of report.recommendations" [class]="rec.level">
+        <strong>{{ rec.title }}</strong>
+        <p>{{ rec.message }}</p>
+      </div>
+    </mat-card>
+
+    <mat-card class="panel">
+      <h3>Top pagos a barberos</h3>
+      <div class="row" *ngFor="let item of report.topCommissions">
+        <span>{{ item.barberName }}</span>
+        <strong>${{ item.total | number:'1.0-0' }}</strong>
+      </div>
+      <div class="empty" *ngIf="report.topCommissions.length === 0">Sin pagos a barberos en este mes.</div>
+    </mat-card>
+  </div>
+</div>

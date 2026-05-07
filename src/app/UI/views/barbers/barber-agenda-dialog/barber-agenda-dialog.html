@@ -1,0 +1,100 @@
+﻿<div class="dialog-container">
+    <div class="dialog-header">
+<h2 class="dialog-title">
+    Agenda de {{ data?.barber?.name }} {{ data?.barber?.last_name || '' }}
+  </h2>
+  <button mat-icon-button mat-dialog-close style="border: none;
+    background: none; cursor: pointer;">
+  <mat-icon>close</mat-icon>
+</button>
+</div>
+  <mat-dialog-content class="content">
+
+    <div class="topbar">
+
+      <mat-form-field appearance="outline" class="date-field">
+        <mat-label>Fecha</mat-label>
+
+        <input
+          matInput
+          [matDatepicker]="picker"
+          [(ngModel)]="selectedDate"
+          (dateChange)="loadSchedule()">
+
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="picker">
+        </mat-datepicker-toggle>
+
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <button
+        mat-stroked-button
+        (click)="goToday()">
+        Hoy
+      </button>
+
+    </div>
+
+    <div class="legend">
+      <span><i class="free"></i> Libre</span>
+      <span><i class="booked"></i> Cita</span>
+      <span><i class="blocked"></i> Bloqueado</span>
+    </div>
+
+    <div *ngIf="loading" class="loading">
+      Cargando agenda...
+    </div>
+
+    <div *ngIf="!loading && slots.length === 0" class="empty">
+      Sin horarios disponibles.
+    </div>
+
+    <div class="grid" *ngIf="!loading && slots.length">
+
+      <div
+        class="slot"
+        *ngFor="let item of slots"
+        [ngClass]="item.status.toLowerCase()">
+
+        <div class="time">
+          {{ item.time | timeFormat }}
+        </div>
+
+        <div class="info">
+
+          <ng-container [ngSwitch]="item.status">
+
+            <div *ngSwitchCase="'FREE'">
+              Disponible
+            </div>
+
+            <div *ngSwitchCase="'BOOKED'">
+              <strong>{{ item.client || 'Reservado' }}</strong>
+              <small>{{ item.service || '' }}</small>
+              <small *ngIf="getSlotPriceLabel(item)">Costo: {{ getSlotPriceLabel(item) }}</small>
+            </div>
+
+            <div *ngSwitchCase="'BLOCKED'">
+              <strong>Bloqueado</strong>
+              <small>{{ item.reason || '' }}</small>
+            </div>
+
+            <div *ngSwitchDefault>
+              {{ item.status }}
+            </div>
+
+          </ng-container>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </mat-dialog-content>
+
+
+  </div>
+

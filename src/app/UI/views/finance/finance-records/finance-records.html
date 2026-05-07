@@ -1,0 +1,427 @@
+<div class="finance-page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div>
+      <h2>{{ title }}</h2>
+      <p>Registra y controla movimientos financieros</p>
+    </div>
+
+    <!-- SELECTOR MES -->
+    <mat-form-field
+      appearance="outline"
+      class="month-field"
+      *ngIf="!isFixedExpense">
+
+      <mat-label>Seleccionar mes</mat-label>
+
+      <input
+        matInput
+        [matDatepicker]="picker"
+        [value]="selectedDate | date:'MMMM yyyy':'':'es'"
+        readonly
+      />
+
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="picker">
+      </mat-datepicker-toggle>
+
+      <mat-datepicker
+        #picker
+        startView="multi-year"
+        (monthSelected)="selectedDate = $event; onMonthChange(); picker.close()"
+        panelClass="month-picker">
+      </mat-datepicker>
+
+    </mat-form-field>
+
+  </div>
+
+  <!-- MES -->
+  <h3
+    class="selected-month"
+    *ngIf="!isFixedExpense">
+
+    {{ selectedDate | date:'MMMM yyyy':'':'es' }}
+
+  </h3>
+
+  <!-- TOTAL -->
+  <mat-card class="summary-card" *ngIf="isIncomeView || isExpenseView">
+
+    <span class="label">
+      {{ summaryLabel }}
+    </span>
+
+    <strong class="amount">
+      ${{ summaryAmount | currency:'COP ':'symbol':'1.2-2' }}
+    </strong>
+
+  </mat-card>
+
+  <div class="income-toggle" *ngIf="isIncomeView">
+    <button
+      mat-stroked-button
+      [class.active]="incomeRange === 'day'"
+      (click)="setIncomeRange('day')">
+      Dia
+    </button>
+
+    <button
+      mat-stroked-button
+      [class.active]="incomeRange === 'week'"
+      (click)="setIncomeRange('week')">
+      Semana
+    </button>
+
+    <button
+      mat-stroked-button
+      [class.active]="incomeRange === 'month'"
+      (click)="setIncomeRange('month')">
+      Mes
+    </button>
+  </div>
+
+  <mat-form-field
+    appearance="outline"
+    class="week-field"
+    *ngIf="isIncomeView && incomeRange === 'week'">
+    <mat-label>Semana</mat-label>
+    <mat-select [(ngModel)]="selectedWeek" (selectionChange)="onWeekChange()">
+      <mat-option
+        *ngFor="let week of weekOptions"
+        [value]="week.value">
+        {{ week.label }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div class="day-filter" *ngIf="isIncomeView && incomeRange === 'day'">
+    <button
+      mat-stroked-button
+      type="button"
+      (click)="selectToday()">
+      Dia actual
+    </button>
+
+    <mat-form-field appearance="outline" class="day-field">
+      <mat-label>Dia especifico</mat-label>
+      <input
+        matInput
+        [matDatepicker]="dayPicker"
+        [min]="dayFilterMinDate"
+        [max]="dayFilterMaxDate"
+        [(ngModel)]="selectedDayDate"
+        (ngModelChange)="onDayDateChange($event)" />
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="dayPicker">
+      </mat-datepicker-toggle>
+      <mat-datepicker #dayPicker></mat-datepicker>
+    </mat-form-field>
+  </div>
+
+  <div class="grid" [class.single]="isIncomeView">
+
+    <!-- FORMULARIO -->
+    <mat-card class="form-card" *ngIf="!isIncomeView">
+
+      <h3>
+        {{ form.id ? 'Editar movimiento' : 'Nuevo movimiento' }}
+      </h3>
+
+      <!-- DESCRIPCION -->
+      <mat-form-field appearance="outline">
+        <mat-label>Descripción</mat-label>
+        <input matInput [(ngModel)]="form.description" />
+      </mat-form-field>
+
+      <!-- MONTO -->
+      <mat-form-field appearance="outline">
+        <mat-label>Monto</mat-label>
+        <input
+          matInput
+          type="number"
+          min="0"
+          [(ngModel)]="form.amount"
+        />
+      </mat-form-field>
+
+      <!-- FECHA NORMAL -->
+      <mat-form-field
+        appearance="outline"
+        *ngIf="!isFixedExpense">
+
+        <mat-label>Fecha</mat-label>
+
+        <input
+          matInput
+          type="date"
+          [(ngModel)]="form.date"
+        />
+
+      </mat-form-field>
+
+      <!-- DIA DE PAGO -->
+      <mat-form-field
+        appearance="outline"
+        *ngIf="isFixedExpense">
+
+        <mat-label>Día de pago</mat-label>
+
+        <input
+          matInput
+          type="number"
+          min="1"
+          max="31"
+          [(ngModel)]="form.date"
+        />
+
+      </mat-form-field>
+
+      <!-- CATEGORIA -->
+      <mat-form-field appearance="outline">
+        <mat-label>Categoría</mat-label>
+        <input
+          matInput
+          [(ngModel)]="form.category"
+          [matAutocomplete]="categoryAuto"
+          (ngModelChange)="onCategoryInputChange($event)" />
+      </mat-form-field>
+
+      <mat-autocomplete #categoryAuto="matAutocomplete">
+        <mat-option
+          *ngFor="let category of (isExpenseView ? filteredCategorySuggestions : [])"
+          [value]="category">
+          {{ category }}
+        </mat-option>
+      </mat-autocomplete>
+
+      <mat-form-field
+        appearance="outline"
+        *ngIf="isExpenseView">
+        <mat-label>Tipo de pago</mat-label>
+        <mat-select [(ngModel)]="form.payment_method">
+          <mat-option value="">Seleccione</mat-option>
+          <mat-option
+            *ngFor="let method of paymentMethods"
+            [value]="method">
+            {{ method }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div class="invoice-field" *ngIf="isExpenseView">
+        <label class="invoice-label">Factura del pago</label>
+        <input
+          type="file"
+          accept=".pdf,.jpg,.jpeg,.png,.webp"
+          (change)="onInvoiceFileSelected($event)" />
+
+        <div class="invoice-actions" *ngIf="isExpenseView">
+          <small>{{ selectedInvoiceName || form.invoice_file_name || 'Sin factura adjunta' }}</small>
+          <button
+            mat-stroked-button
+            type="button"
+            [disabled]="!form.invoice_url"
+            (click)="openInvoice(form.invoice_url, form.invoice_file_name)">
+            Ver factura
+          </button>
+          <button
+            mat-stroked-button
+            type="button"
+            (click)="clearInvoice()">
+            Quitar factura
+          </button>
+        </div>
+      </div>
+
+      <!-- BARBERO -->
+      <mat-form-field
+        appearance="outline"
+        *ngIf="viewType === 'BARBER_COMMISSION'">
+
+        <mat-label>Barbero</mat-label>
+
+        <mat-select [(ngModel)]="form.barber_id">
+
+          <mat-option value="">
+            Seleccione
+          </mat-option>
+
+          <mat-option
+            *ngFor="let barber of barbers"
+            [value]="barber.id">
+
+            {{ barber.name }} {{ barber.last_name }}
+
+          </mat-option>
+
+        </mat-select>
+
+      </mat-form-field>
+
+      <!-- NOTAS -->
+      <mat-form-field appearance="outline">
+        <mat-label>Notas</mat-label>
+
+        <textarea
+          matInput
+          rows="3"
+          [(ngModel)]="form.notes">
+        </textarea>
+
+      </mat-form-field>
+
+      <!-- BOTONES -->
+      <div class="actions">
+
+        <button
+          mat-stroked-button
+          *ngIf="form.id"
+          (click)="cancelEdit()">
+
+          Cancelar
+
+        </button>
+
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="save()">
+
+          {{ form.id ? 'Guardar cambios' : 'Guardar' }}
+
+        </button>
+
+      </div>
+
+    </mat-card>
+
+    <!-- LISTADO -->
+    <mat-card class="list-card">
+
+      <h3>Movimientos</h3>
+
+      <div
+        class="record"
+        *ngFor="let record of visibleRecords">
+
+        <div class="main">
+
+          <strong>{{ record.description }}</strong>          <small>
+            {{ getTypeLabel(record.type) }}
+            -
+
+            {{
+              record.type === 'FIXED_EXPENSE'
+                ? ('Cada dia ' + getPaymentDay(record.date))
+                : record.date
+            }}
+            <ng-container *ngIf="record.payment_method">
+              - {{ record.payment_method }}
+            </ng-container>
+
+          </small>
+          <div class="record-invoice">
+            <span class="invoice-name">{{ record.invoice_file_name || 'Sin factura adjunta' }}</span>
+            <button
+              mat-stroked-button
+              type="button"
+              [disabled]="!record.invoice_url"
+              (click)="openInvoice(record.invoice_url, record.invoice_file_name)">
+              Ver factura
+            </button>
+          </div>
+
+        </div>
+
+        <div class="right">
+
+          <strong>
+            ${{ record.amount | number:'1.0-0' }}
+          </strong>
+
+          <div class="btns" *ngIf="!isIncomeView">
+
+            <button
+              mat-icon-button
+              color="primary"
+              (click)="edit(record)">
+
+              <mat-icon>edit</mat-icon>
+
+            </button>
+
+            <button
+              mat-icon-button
+              color="warn"
+              (click)="remove(record)">
+
+              <mat-icon>delete</mat-icon>
+
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div
+        class="empty"
+        *ngIf="visibleRecords.length === 0">
+
+        No hay movimientos registrados.
+
+      </div>
+
+    </mat-card>
+
+  </div>
+</div>
+
+<div
+  class="invoice-modal-backdrop"
+  *ngIf="isInvoiceModalOpen"
+  (click)="closeInvoiceModal()">
+  <div
+    class="invoice-modal"
+    (click)="$event.stopPropagation()">
+    <div class="invoice-modal-header">
+      <div>
+        <h3>{{ activeInvoiceName }}</h3>
+        <p>Vista previa de factura</p>
+      </div>
+      <button
+        mat-icon-button
+        type="button"
+        (click)="closeInvoiceModal()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+
+    <div class="invoice-modal-body">
+      <img
+        *ngIf="activeInvoiceType === 'image'"
+        [src]="activeInvoiceUrl"
+        [alt]="activeInvoiceName"
+        class="invoice-preview-image" />
+
+      <iframe
+        *ngIf="activeInvoiceType === 'pdf'"
+        [src]="activeInvoiceSafeUrl"
+        class="invoice-preview-frame">
+      </iframe>
+
+      <div
+        class="invoice-preview-fallback"
+        *ngIf="activeInvoiceType === 'other'">
+        <p>No se pudo renderizar esta factura en vista previa.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+

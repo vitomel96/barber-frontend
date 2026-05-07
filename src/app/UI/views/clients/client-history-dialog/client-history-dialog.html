@@ -1,0 +1,49 @@
+﻿<div class="dialog-container">
+<div class="dialog-header">
+<h2 class="dialog-title">
+  Historial de {{ data.name }}
+  
+</h2>
+
+<button mat-icon-button mat-dialog-close style="border: none;
+    background: none; cursor: pointer;">
+  <mat-icon>close</mat-icon>
+</button>
+</div>
+<mat-dialog-content class="history-modal">
+
+  <div class="resume" *ngIf="history.length">
+    {{ history.length }} visitas registradas
+  </div>
+
+  <div *ngFor="let item of history" class="card-history">
+
+    <div class="top-row">
+      <div class="service">
+        {{ item.service?.name }}
+      </div>
+
+      <div class="price">
+        {{ item.price | currency:'COP ':'symbol':'1.0-0' }}
+      </div>
+    </div>
+
+    <div class="meta">
+      <span>ðŸ“… {{ item.date }}</span>
+      <span>â° {{ item.hour | timeFormat }}</span>
+    </div>
+
+    <div class="barber">
+      ðŸ’ˆ {{ item.barber?.name }}
+    </div>
+
+    <div class="badge completed" *ngIf="item.status==='COMPLETED'">
+      COMPLETADA
+    </div>
+
+  </div>
+
+</mat-dialog-content>
+
+
+</div>

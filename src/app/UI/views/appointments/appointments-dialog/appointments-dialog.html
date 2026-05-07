@@ -1,0 +1,117 @@
+<h2 mat-dialog-title>{{ dialogTitle }}</h2>
+
+<form [formGroup]="form" mat-dialog-content style="    display: grid;
+    gap: 2%;">
+
+  <!-- CLIENTE -->
+  <mat-form-field appearance="outline" class="w-100">
+    <mat-label>Cliente</mat-label>
+    <input
+      matInput
+      [disabled]="data?.client"
+      [formControl]="clientSearchControl"
+      [matAutocomplete]="clientAuto"
+      placeholder="Escribe para buscar cliente" />
+    <mat-autocomplete
+      #clientAuto="matAutocomplete"
+      [displayWith]="displayClient"
+      (optionSelected)="selectClient($event.option.value)">
+      <mat-option
+        *ngFor="let c of filteredClients"
+        [value]="c.id">
+        {{ c.name }} {{ c.last_name }}
+      </mat-option>
+      <mat-option disabled *ngIf="filteredClients.length === 0">Sin resultados</mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  <!-- FECHA -->
+  <mat-form-field appearance="outline" class="w-100">
+    <mat-label>Fecha</mat-label>
+    <input matInput [matDatepicker]="picker"
+           formControlName="date">
+    <mat-datepicker-toggle matSuffix
+        [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <!-- SERVICIO -->
+  <mat-form-field appearance="outline" class="w-100">
+    <mat-label>Servicio</mat-label>
+    <input
+      matInput
+      [formControl]="serviceSearchControl"
+      [matAutocomplete]="serviceAuto"
+      placeholder="Escribe para buscar servicio" />
+    <mat-autocomplete
+      #serviceAuto="matAutocomplete"
+      [displayWith]="displayService"
+      (optionSelected)="selectService($event.option.value)">
+      <mat-option
+        *ngFor="let s of filteredServices"
+        [value]="s.id">
+        {{ s.name }} - {{ s.duration }} min
+      </mat-option>
+      <mat-option disabled *ngIf="filteredServices.length === 0">Sin resultados</mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  <!-- BARBERO -->
+  <mat-form-field appearance="outline" class="w-100">
+    <mat-label>Barbero</mat-label>
+    <input
+      matInput
+      [formControl]="barberSearchControl"
+      [matAutocomplete]="barberAuto"
+      placeholder="Escribe para buscar barbero" />
+    <mat-autocomplete
+      #barberAuto="matAutocomplete"
+      [displayWith]="displayBarber"
+      (optionSelected)="selectBarber($event.option.value)">
+      <mat-option
+        *ngFor="let b of filteredBarbers"
+        [value]="b.id">
+        {{ b.name }} {{ b.last_name }}
+      </mat-option>
+      <mat-option disabled *ngIf="filteredBarbers.length === 0">Sin resultados</mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+
+
+
+
+  <!-- HORA INICIO -->
+<mat-form-field appearance="outline" class="w-100">
+  <mat-label>Hora Inicio</mat-label>
+  <mat-select 
+    formControlName="start_time"
+   >
+    <mat-option 
+      *ngFor="let slot of availableSlots" 
+      [value]="slot">
+      {{ slot | timeFormat }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+
+  <!-- HORA FIN AUTOMÁTICA -->
+<p *ngIf="calculatedEndTime !== ''">
+  Finaliza a las: <strong>{{ calculatedEndTime | timeFormat }}</strong>
+</p>
+
+  <!-- NOTAS -->
+  <mat-form-field appearance="outline" class="w-100">
+    <mat-label>Notas</mat-label>
+    <textarea matInput rows="3"
+              formControlName="notes"></textarea>
+  </mat-form-field>
+
+</form>
+
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="close()">Cancelar</button>
+  <button mat-raised-button
+          color="primary"
+          [disabled]="form.invalid"
+          (click)="save()">
+    Guardar
+  </button>
+</div>

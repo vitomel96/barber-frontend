@@ -1,0 +1,78 @@
+.container {
+  padding: 20px;
+}
+
+.toolbar {
+  margin-bottom: 15px;
+  display: flex;
+  gap: 15px;
+}
+
+select {
+  padding: 8px;
+  border-radius: 6px;
+}
+::ng-deep .event-pending {
+  background-color: #ff9800 !important;
+  border-color: #ff9800 !important;
+  color: white !important;
+}
+
+::ng-deep .event-completed {
+  background-color: #4caf50 !important;
+  border-color: #4caf50 !important;
+  color: white !important;
+}
+
+::ng-deep .event-cancelled {
+  background-color: #f44336 !important;
+  border-color: #f44336 !important;
+  color: white !important;
+}
+
+::ng-deep .fc-timegrid-event .fc-event-main {
+  padding: 4px 6px;
+}
+
+::ng-deep .appointment-event-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+::ng-deep .appointment-event-time {
+  font-size: 11px;
+  line-height: 1.1;
+  font-weight: 600;
+  opacity: 0.95;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+::ng-deep .appointment-event-client,
+::ng-deep .appointment-event-service {
+  font-size: 12px;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+::ng-deep .appointment-event-client {
+  font-weight: 600;
+}
+
+::ng-deep .appointment-event-service {
+  opacity: 0.96;
+}
+
+::ng-deep .fc .fc-timegrid-slot {
+  height: 42px;
+}
+
+::ng-deep .fc .fc-timegrid-axis-cushion,
+::ng-deep .fc .fc-timegrid-slot-label-cushion {
+  font-size: 13px;
+}

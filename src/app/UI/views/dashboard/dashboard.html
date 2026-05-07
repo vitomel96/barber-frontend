@@ -1,0 +1,188 @@
+﻿<div class="dashboard-page">
+
+  <!-- HEADER -->
+  <div class="dashboard-header">
+    <div>
+      <h1>Dashboard</h1>
+      <p style="margin-top: 20px;">Bienvenido de vuelta, aquí­ está tu resumen de hoy</p>
+    </div>
+  </div>
+
+  <!-- KPI -->
+  <div class="kpi-grid">
+
+    <mat-card class="kpi-card blue">
+      <div class="card-top">
+        <span>Citas Hoy</span>
+        <mat-icon>calendar_today</mat-icon>
+      </div>
+
+      <div class="number">
+        {{ pendingAppointments ?? 0 }}
+      </div>
+    </mat-card>
+
+    <mat-card class="kpi-card purple">
+      <div class="card-top">
+        <span>Total Clientes</span>
+        <mat-icon>groups</mat-icon>
+      </div>
+
+      <div class="number">
+        {{ clients ?? 0 }}
+      </div>
+    </mat-card>
+
+    <mat-card class="kpi-card green">
+      <div class="card-top">
+        <span>Ingresos Hoy</span>
+        <mat-icon>attach_money</mat-icon>
+      </div>
+
+      <div class="number">
+        ${{ incomeToday ?? 0 }}
+      </div>
+    </mat-card>
+
+    <mat-card class="kpi-card orange">
+      <div class="card-top">
+        <span>Ocupación</span>
+        <mat-icon>schedule</mat-icon>
+      </div>
+
+      <div class="number">
+        {{ ocupation ?? 0 }}%
+      </div>
+
+      <small>
+        {{ freeSlots ?? 0 }} espacios disponibles
+      </small>
+    </mat-card>
+
+  </div>
+
+  <!-- CHARTS -->
+  <div class="charts-grid">
+
+    <!-- INGRESOS -->
+    <mat-card class="panel-card">
+
+      <div class="panel-header">
+        <h3>Ingresos Semanales</h3>
+        <span>Última semana</span>
+      </div>
+
+      <apx-chart
+        *ngIf="weeklyIncomeChart"
+        [series]="weeklyIncomeChart.series"
+        [chart]="weeklyIncomeChart.chart"
+        [xaxis]="weeklyIncomeChart.xaxis"
+        [yaxis]="weeklyIncomeChart.yaxis"
+        [stroke]="weeklyIncomeChart.stroke"
+        [dataLabels]="weeklyIncomeChart.dataLabels"
+        [tooltip]="weeklyIncomeChart.tooltip"
+        [colors]="weeklyIncomeChart.colors">
+      </apx-chart>
+
+    </mat-card>
+
+    <!-- SERVICIOS -->
+    <mat-card class="panel-card">
+
+      <div class="panel-header">
+        <h3>Servicios más Solicitados</h3>
+        <span>Este mes</span>
+      </div>
+
+      <apx-chart
+        *ngIf="servicesChart"
+        [series]="servicesChart.series"
+        [chart]="servicesChart.chart"
+        [xaxis]="servicesChart.xaxis"
+        [yaxis]="servicesChart.yaxis"
+        [plotOptions]="servicesChart.plotOptions"
+        [dataLabels]="servicesChart.dataLabels"
+        [tooltip]="servicesChart.tooltip"
+        [colors]="servicesChart.colors">
+      </apx-chart>
+
+    </mat-card>
+
+  </div>
+
+  <!-- LISTAS -->
+  <div class="charts-grid">
+
+    <!-- PROXIMAS CITAS -->
+    <mat-card class="panel-card">
+
+      <div class="panel-header">
+        <h3>Próximas Citas</h3>
+        <span>Hoy</span>
+      </div>
+
+      <div
+        class="list-item"
+        *ngFor="let item of nextAppointments">
+
+        <div class="avatar">
+          {{ item.name?.charAt(0) }}
+        </div>
+
+        <div class="info">
+          <strong>{{ item.name }}</strong>
+          <small>{{ item.service }}</small>
+        </div>
+
+        <div class="right">
+          <strong>{{ item.hour | timeFormat }}</strong>
+          <small>{{ item.barber }}</small>
+        </div>
+
+      </div>
+
+      <div
+        class="empty"
+        *ngIf="nextAppointments.length === 0">
+        Sin citas próximas
+      </div>
+
+    </mat-card>
+
+    <!-- <mat-card class="panel-card">
+
+      <div class="panel-header">
+        <h3>Barberos Destacados</h3>
+        <span>Hoy</span>
+      </div>
+
+      <div
+        class="list-item"
+        *ngFor="let b of topBarbers">
+
+        <div class="avatar orange-bg">
+          {{ b.name?.charAt(0) }}
+        </div>
+
+        <div class="info">
+          <strong>{{ b.name }}</strong>
+          <small>{{ b.appointments }} citas</small>
+        </div>
+
+        <div class="right green-text">
+          ${{ b.income }}
+        </div>
+
+      </div>
+
+      <div
+        class="empty"
+        *ngIf="topBarbers.length === 0">
+        Sin datos disponibles
+      </div>
+
+    </mat-card> -->
+
+  </div>
+
+</div>

@@ -1,0 +1,99 @@
+﻿<div class="detail-dialog">
+
+<div mat-dialog-content class="dialog-content">
+<div class="dialog-header">
+
+  <h2 class="dialog-title">
+    Detalle de cita
+  </h2>
+
+<button mat-icon-button mat-dialog-close style="border: none;
+    background: none; cursor: pointer;">
+  <mat-icon>close</mat-icon>
+</button>
+</div>
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="client-info">
+      <div class="avatar">
+        {{ data.client.name.charAt(0) }}
+      </div>
+
+      <div>
+        <div class="name">
+          {{ data.client.name }} {{ data.client.last_name }}
+        </div>
+        <div class="email">
+          {{ data.client.email }}
+        </div>
+      </div>
+    </div>
+
+    <span class="status" [ngClass]="data.status.toLowerCase()">
+      {{ data.status === 'PENDING' ? 'Pendiente' :
+         data.status === 'PENDING_CLOSURE' ? 'Pendiente de cierre' :
+         data.status === 'COMPLETED' ? 'Completada' :
+         data.status === 'CANCELLED' ? 'Cancelada' : data.status }}
+    </span>
+  </div>
+
+  <!-- INFO GRID -->
+  <div class="info-grid">
+
+    <div class="card">
+      <h4>ðŸ“ž Contacto</h4>
+      <p>{{ data.client.phone }}</p>
+    </div>
+
+    <div class="card">
+      <h4>âœ‚ï¸ Barbero</h4>
+      <p>{{ data.barber.name }}</p>
+    </div>
+
+    <div class="card">
+      <h4>ðŸ’ˆ Servicio</h4>
+      <p>{{ data.service.name }}</p>
+      <span class="price">${{ data.price | number:'1.2-2' }}</span>
+      <small class="tip">Propina: ${{ (data.tip || 0) | number:'1.0-0' }}</small>
+      <small class="tip" *ngIf="data.payment_method">Pago: {{ data.payment_method }}</small>
+    </div>
+
+    <div class="card">
+      <h4>ðŸ“… Fecha</h4>
+      <p>{{ data.date }}</p>
+      <p>{{ data.hour | timeFormat }}</p>
+    </div>
+
+    <div class="card full">
+      <h4>â± Duración</h4>
+      <p>{{ data.duration }} minutos</p>
+    </div>
+
+  </div>
+<div class="actions" *ngIf="data.status === 'PENDING'">
+
+  <button
+    mat-raised-button
+    color="primary"
+    class="btn-remember"
+    (click)="recordarCita()"
+  >
+    <mat-icon>content_copy</mat-icon>
+    Recordar
+  </button>
+
+  <button
+    mat-stroked-button
+    class="btn-whatsapp"
+    (click)="abrirWhatsApp()"
+  >
+    <mat-icon>chat_bubble</mat-icon>
+    WhatsApp
+  </button>
+
+</div>
+</div>
+
+</div>
+

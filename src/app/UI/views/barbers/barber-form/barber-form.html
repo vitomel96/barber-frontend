@@ -1,0 +1,75 @@
+<h2 mat-dialog-title>
+  {{ isEditMode ? 'Editar Barbero' : 'Nuevo Barbero' }}
+</h2>
+
+<form [formGroup]="form" (ngSubmit)="save()">
+
+  <mat-dialog-content>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="name">
+      <mat-error *ngIf="form.get('name')?.invalid">
+        El nombre es obligatorio
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Apellido</mat-label>
+      <input matInput formControlName="last_name">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Teléfono</mat-label>
+      <input matInput formControlName="phone">
+      <mat-error *ngIf="form.get('phone')?.invalid">
+        El teléfono es obligatorio
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email">
+      <mat-error *ngIf="form.get('email')?.invalid">
+        Email inválido
+      </mat-error>
+    </mat-form-field>
+
+    <div class="time-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Hora Inicio</mat-label>
+        <input matInput type="time" formControlName="start_time">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Hora Fin</mat-label>
+        <input matInput type="time" formControlName="end_time">
+      </mat-form-field>
+    </div>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Día libre</mat-label>
+      <mat-select formControlName="day_off">
+        <mat-option *ngFor="let day of days" [value]="day.value">
+          {{ day.label }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-slide-toggle formControlName="is_active">
+      Activo
+    </mat-slide-toggle>
+
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button type="button" (click)="close()">
+      Cancelar
+    </button>
+
+    <button mat-flat-button color="primary" type="submit" [disabled]="isLoading">
+      {{ isEditMode ? 'Actualizar' : 'Guardar' }}
+    </button>
+  </mat-dialog-actions>
+
+</form>

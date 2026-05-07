@@ -1,0 +1,47 @@
+<h2 mat-dialog-title>
+  {{ isEdit ? 'Editar Servicio' : 'Nuevo Servicio' }}
+</h2>
+
+<form [formGroup]="form" mat-dialog-content>
+
+  <mat-form-field appearance="outline" class="w-100">
+    <mat-label>Nombre</mat-label>
+    <input matInput formControlName="name">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="w-100">
+    <mat-label>Duración (min)</mat-label>
+    <input matInput type="number"
+           formControlName="duration">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="w-100">
+    <mat-label>Precio</mat-label>
+    <input matInput type="number"
+           formControlName="price">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="w-100">
+    <mat-label>Comisión barbero (%)</mat-label>
+    <input matInput type="number"
+           min="0"
+           max="100"
+           formControlName="barber_commission_percent">
+  </mat-form-field>
+
+  
+  <mat-form-field appearance="outline" class="w-100">
+    <mat-label>Puntos</mat-label>
+    <input matInput type="number"
+           formControlName="earning_points">
+  </mat-form-field>
+</form>
+
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="close()">Cancelar</button>
+  <button mat-raised-button color="primary"
+          [disabled]="form.invalid"
+          (click)="save()">
+    Guardar
+  </button>
+</div>

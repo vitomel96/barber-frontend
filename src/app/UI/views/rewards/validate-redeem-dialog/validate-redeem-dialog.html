@@ -1,0 +1,56 @@
+<h2 mat-dialog-title>Validar Canje</h2>
+
+<form [formGroup]="form" mat-dialog-content>
+
+  <!-- HASH -->
+  <mat-form-field appearance="outline" class="w-100">
+    <mat-label>Código de Canje</mat-label>
+    <input matInput 
+           formControlName="code"
+           placeholder="Ej: 8F3A-92KD-1XZQ">
+  </mat-form-field>
+
+  <!-- RESULTADO -->
+  <div *ngIf="result" class="result-box">
+
+    <div class="success" *ngIf="result.valid">
+      <mat-icon color="primary">check_circle</mat-icon>
+      <h3>Canje válido</h3>
+
+      <p><strong>Cliente:</strong> {{ result.client_name }}</p>
+      <p><strong>Premio:</strong> {{ result.reward_name }}</p>
+      <p><strong>Puntos usados:</strong> {{ result.points_used }}</p>
+    </div>
+
+    <div class="error" *ngIf="!result.valid">
+      <mat-icon color="warn">cancel</mat-icon>
+      <h3>Canje inválido</h3>
+      <p>{{ result.message }}</p>
+    </div>
+
+  </div>
+
+</form>
+
+<div mat-dialog-actions align="end">
+
+  <button mat-button mat-dialog-close>
+    Cerrar
+  </button>
+
+  <button mat-raised-button 
+          color="primary"
+          [disabled]="form.invalid || loading"
+          (click)="validate()">
+
+    <mat-icon *ngIf="!loading">verified</mat-icon>
+    <mat-progress-spinner
+      *ngIf="loading"
+      diameter="18"
+      mode="indeterminate">
+    </mat-progress-spinner>
+
+    Validar
+  </button>
+
+</div>

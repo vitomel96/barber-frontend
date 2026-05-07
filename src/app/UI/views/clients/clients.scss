@@ -1,0 +1,290 @@
+.clients-card {
+  padding: 1.5rem;
+  border-radius: 16px;
+}
+
+/* HEADER */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.title h2 {
+  margin: 0;
+  font-weight: 600;
+}
+
+.subtitle {
+  font-size: 0.85rem;
+  color: #777;
+}
+
+.add-btn {
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+/* TABLE */
+.table-container {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-radius: 12px;
+}
+
+.mat-header-row {
+  background: #f8f9fb;
+}
+
+.mat-header-cell {
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.mat-row {
+  transition: background 0.2s ease;
+}
+
+.mat-row:hover {
+  background: #f5f7fa;
+}
+
+/* CLIENT INFO */
+.client-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #af3544, #df5667);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+
+.client-name {
+  font-weight: 500;
+}
+
+.client-phone {
+  font-size: 0.8rem;
+  color: #777;
+}
+
+/* POINTS BADGE */
+.points-badge {
+  background: #e8f5e9;
+  color: #2e7d32;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+/* ALIGN RIGHT */
+.text-right {
+  text-align: right;
+}
+.loading-container {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 0;
+}
+
+.error-message {
+  text-align: center;
+  color: #d32f2f;
+  padding: 1rem;
+}
+/* GRID */
+.clients-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+  gap: 16px;
+}
+
+/* CARD */
+.client-card {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 18px;
+  transition: all 0.2s ease;
+}
+
+.client-card:hover {
+  box-shadow: 0 12px 30px rgba(0,0,0,0.05);
+  transform: translateY(-2px);
+}
+
+/* TOP */
+.top {
+  display: flex;
+  justify-content: space-between;
+}
+
+.left {
+  display: flex;
+  gap: 12px;
+}
+
+/* AVATAR */
+.avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #8b5cf6, #9333ea);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+
+/* INFO */
+.info h3 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.contact {
+  display: flex;
+  flex-direction: column;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+/* DIVIDER */
+.divider {
+  height: 1px;
+  background: #e5e7eb;
+  margin: 14px 0;
+}
+
+/* STATS */
+.stats {
+  display: flex;
+  gap: 40px;
+  margin-bottom: 14px;
+}
+
+.label {
+  display: block;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.stats strong {
+  font-size: 16px;
+}
+
+/* ACTIONS */
+.actions {
+  display: flex;
+  gap: 10px;
+}
+
+.actions button {
+  flex: 1;
+  border-radius: 10px;
+}
+
+.actions button:disabled{
+  opacity: 0.7!important;
+  cursor: not-allowed!important;
+}
+/* GRID */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+/* CARD */
+.stat-card {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 16px;
+  transition: 0.2s ease;
+}
+
+.stat-card:hover {
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
+/* TOP */
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #6b7280;
+  font-size: 13px;
+}
+
+/* NUMERO */
+.stat-card h2 {
+  margin: 10px 0 4px;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+/* SUB */
+.sub {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+/* ICONOS */
+.icon {
+  font-size: 20px;
+}
+
+.icon.blue {
+  color: #3b82f6;
+}
+
+.icon.green {
+  color: #22c55e;
+}
+
+.icon.purple {
+  color: #a855f7;
+}
+@media (max-width: 768px){
+  .clients-grid{
+    grid-template-columns: inherit;
+  }
+}
+.search-box{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  background:#f8f9fb;
+  border:1px solid #e6e8ec;
+  border-radius:14px;
+  padding:12px 16px;
+  margin:18px 0;
+}
+
+.search-box input{
+  border:none;
+  outline:none;
+  background:transparent;
+  width:100%;
+  font-size:14px;
+}

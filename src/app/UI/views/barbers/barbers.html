@@ -1,0 +1,101 @@
+<mat-card class="barbers-card">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div>
+      <h2>Barberos</h2>
+      <span class="subtitle">Gestiona tu equipo de profesionales</span>
+    </div>
+
+    <button mat-raised-button color="primary" (click)="agregarBarbero()">
+      <mat-icon>add</mat-icon>
+      Añadir Barbero
+    </button>
+  </div>
+
+  <!-- LOADING -->
+  <div class="loading" *ngIf="isLoading">
+    <mat-spinner diameter="40"></mat-spinner>
+  </div>
+
+  <!-- ERROR -->
+  <div class="error" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </div>
+
+  <!-- LISTA -->
+  <div class="barbers-grid" *ngIf="!isLoading && !errorMessage">
+
+    <div class="barber-card" *ngFor="let b of dataSource.data">
+
+      <!-- TOP -->
+      <div class="top">
+
+        <div class="left">
+
+          <div class="avatar">
+            {{ (b.name || '?').charAt(0) }}{{ (b.last_name || '?').charAt(0) }}
+            <span class="status-dot" [ngClass]="b.is_active ? 'active' : 'inactive'"></span>
+          </div>
+
+          <div>
+            <h3>{{ b.name }} {{ b.last_name }}</h3>
+          </div>
+
+        </div>
+
+        <!-- RATING MOCK -->
+        <div class="rating">
+          ⭐ 4.8 <span>(120)</span>
+        </div>
+
+      </div>
+
+      <!-- STATS -->
+      <div class="stats">
+
+        <div>
+          <span>Citas Hoy</span>
+          <strong>{{ b.appointmentsToday || 0 }}</strong>
+        </div>
+
+        <div>
+          <span>Este Mes</span>
+          <strong>{{ b.appointmentsMonth || 0 }}</strong>
+        </div>
+
+        <div>
+          <span>Ingresos</span>
+          <strong class="money">${{ b.ingress || 0 | currency:'COP ':'symbol' }}</strong>
+        </div>
+
+      </div>
+
+      <!-- PROGRESS -->
+      <div class="progress">
+        <div class="label">
+          <span>Ocupación</span>
+          <span>{{ b.ocupation || 0 }}%</span>
+        </div>
+
+        <div class="bar">
+          <div class="fill" [style.width.%]="b.ocupation || 0"></div>
+        </div>
+      </div>
+
+      <!-- ACTIONS -->
+      <div class="actions">
+<button mat-stroked-button (click)="editar(b)">
+  Editar
+</button>
+<button mat-stroked-button (click)="verAgenda(b)">
+  Ver Agenda
+</button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</mat-card>
