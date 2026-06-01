@@ -28,9 +28,11 @@ commit_changes "$backend_dir" "barber-backend"
 commit_changes "$frontend_dir" "barber-frontend"
 
 echo "Publicando backend..."
-git -C "$backend_dir" push origin main
+git -C "$backend_dir" push origin main ||
+  git -C "$backend_dir" push https://github.com/vitomel96/barber-backend.git main
 
 echo "Publicando frontend..."
-git -C "$frontend_dir" push origin master
+git -C "$frontend_dir" push origin master ||
+  git -C "$frontend_dir" push https://github.com/vitomel96/barber-frontend.git master
 
 echo "Publicacion enviada. GitHub desplegara backend y frontend automaticamente."
