@@ -63,7 +63,9 @@ export class AppointmentsCalendarComponent implements OnInit {
     initialView: 'timeGridWeek',
     selectable: true,
     height: 'auto',
-    slotDuration: '00:30:00',
+    slotDuration: '00:05:00',
+    snapDuration: '00:05:00',
+    slotLabelInterval: '00:30:00',
     slotMinTime: '08:00:00',
     slotMaxTime: '20:00:00',
     slotLabelFormat: {

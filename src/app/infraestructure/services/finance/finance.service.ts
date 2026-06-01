@@ -36,6 +36,10 @@ export class FinanceService extends FinanceGateway {
     return this.genericService.post<FinanceRecord>(this._url, 'finances', record);
   }
 
+  createCashRegisterSale(sale: any): Observable<FinanceRecord> {
+    return this.genericService.post<FinanceRecord>(this._url, 'finances/cash-register', sale);
+  }
+
   updateRecord(id: string, record: Partial<FinanceRecord>): Observable<FinanceRecord> {
     return this.genericService.patch<FinanceRecord>(this._url, `finances/${id}`, record);
   }

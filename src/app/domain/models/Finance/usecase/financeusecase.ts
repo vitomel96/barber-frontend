@@ -23,6 +23,10 @@ export class FinanceUseCase {
     return this.financeGateway.createRecord(record);
   }
 
+  createCashRegisterSale(sale: any): Observable<FinanceRecord> {
+    return this.financeGateway.createCashRegisterSale(sale);
+  }
+
   updateRecord(id: string, record: Partial<FinanceRecord>): Observable<FinanceRecord> {
     return this.financeGateway.updateRecord(id, record);
   }

@@ -2,7 +2,7 @@
   <div class="header">
     <div>
       <h2>Reporte Financiero General</h2>
-      <p>Ingresos - egresos para ver ganancias o pérdidas del mes</p>
+      <p>Ingreso bruto - comisiones de barberos - egresos operativos = ganancia real</p>
     </div>
 
     <div class="header-actions">
@@ -24,15 +24,23 @@
 
   <div class="kpi-grid" *ngIf="report">
     <mat-card class="kpi">
-      <span>Ingresos</span>
+      <span>Ingresos brutos del mes</span>
       <strong>${{ report.summary.income | number:'1.0-0' }}</strong>
     </mat-card>
     <mat-card class="kpi">
-      <span>Egresos totales</span>
+      <span>Comisiones de barberos</span>
+      <strong>${{ report.summary.barberCommission | number:'1.0-0' }}</strong>
+    </mat-card>
+    <mat-card class="kpi">
+      <span>Ingresos después de comisiones</span>
+      <strong>${{ report.summary.incomeAfterCommission | number:'1.0-0' }}</strong>
+    </mat-card>
+    <mat-card class="kpi">
+      <span>Egresos operativos totales</span>
       <strong>${{ report.summary.totalExpenses | number:'1.0-0' }}</strong>
     </mat-card>
     <mat-card class="kpi" [class.loss]="report.summary.net < 0">
-      <span>{{ report.summary.net >= 0 ? 'Ganancia neta' : 'Pérdida neta' }}</span>
+      <span>{{ report.summary.net >= 0 ? 'Ganancia real' : 'Pérdida real' }}</span>
       <strong>${{ report.summary.net | number:'1.0-0' }}</strong>
     </mat-card>
     <mat-card class="kpi">
@@ -42,6 +50,34 @@
   </div>
 
   <div class="grid" *ngIf="report">
+    <mat-card class="panel breakdown">
+      <h3>Desglose del cálculo</h3>
+      <div class="row">
+        <span>Ingresos brutos</span>
+        <strong>${{ report.summary.income | number:'1.0-0' }}</strong>
+      </div>
+      <div class="row deduction">
+        <span>(-) Comisiones de barberos</span>
+        <strong>${{ report.summary.barberCommission | number:'1.0-0' }}</strong>
+      </div>
+      <div class="row subtotal">
+        <span>(=) Ingresos después de comisiones</span>
+        <strong>${{ report.summary.incomeAfterCommission | number:'1.0-0' }}</strong>
+      </div>
+      <div class="row deduction">
+        <span>(-) Egresos mensuales</span>
+        <strong>${{ report.summary.expense | number:'1.0-0' }}</strong>
+      </div>
+      <div class="row deduction">
+        <span>(-) Egresos fijos</span>
+        <strong>${{ report.summary.fixedExpense | number:'1.0-0' }}</strong>
+      </div>
+      <div class="row result" [class.loss]="report.summary.net < 0">
+        <span>(=) {{ report.summary.net >= 0 ? 'Ganancia real' : 'Pérdida real' }}</span>
+        <strong>${{ report.summary.net | number:'1.0-0' }}</strong>
+      </div>
+    </mat-card>
+
     <mat-card class="panel">
       <h3>Recomendaciones</h3>
       <div class="recommendation" *ngFor="let rec of report.recommendations" [class]="rec.level">

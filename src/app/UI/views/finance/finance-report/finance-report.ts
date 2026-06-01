@@ -63,9 +63,13 @@ export class FinanceReportComponent implements OnInit {
     const lines: string[] = [];
     lines.push('Reporte Financiero');
     lines.push(`Mes,${r.month}`);
-    lines.push(`Ingresos,${r.summary.income}`);
-    lines.push(`Egresos Totales,${r.summary.totalExpenses}`);
-    lines.push(`Ganancia/Perdida Neta,${r.summary.net}`);
+    lines.push(`Ingresos Brutos,${r.summary.income}`);
+    lines.push(`Comisiones Barberos,${r.summary.barberCommission}`);
+    lines.push(`Ingresos Despues de Comisiones,${r.summary.incomeAfterCommission}`);
+    lines.push(`Egresos Mensuales,${r.summary.expense}`);
+    lines.push(`Egresos Fijos,${r.summary.fixedExpense}`);
+    lines.push(`Egresos Operativos Totales,${r.summary.totalExpenses}`);
+    lines.push(`Ganancia/Perdida Real,${r.summary.net}`);
     lines.push(`Margen,${r.metrics.margin}`);
     lines.push(`Propinas Mes,${r.metrics.tipsMonth}`);
     lines.push('');
@@ -92,9 +96,13 @@ export class FinanceReportComponent implements OnInit {
       <html><head><title>Reporte Financiero</title></head><body>
       <h1>Reporte Financiero General</h1>
       <p><strong>Mes:</strong> ${r.month}</p>
-      <p><strong>Ingresos:</strong> $${r.summary.income}</p>
-      <p><strong>Egresos:</strong> $${r.summary.totalExpenses}</p>
-      <p><strong>Neto:</strong> $${r.summary.net}</p>
+      <p><strong>Ingresos brutos:</strong> $${r.summary.income}</p>
+      <p><strong>Comisiones de barberos:</strong> $${r.summary.barberCommission}</p>
+      <p><strong>Ingresos después de comisiones:</strong> $${r.summary.incomeAfterCommission}</p>
+      <p><strong>Egresos mensuales:</strong> $${r.summary.expense}</p>
+      <p><strong>Egresos fijos:</strong> $${r.summary.fixedExpense}</p>
+      <p><strong>Egresos operativos totales:</strong> $${r.summary.totalExpenses}</p>
+      <p><strong>Ganancia real:</strong> $${r.summary.net}</p>
       <p><strong>Margen:</strong> ${r.metrics.margin.toFixed(1)}%</p>
       <h3>Recomendaciones</h3>
       <ul>${r.recommendations.map((x) => `<li><strong>${x.title}</strong>: ${x.message}</li>`).join('')}</ul>

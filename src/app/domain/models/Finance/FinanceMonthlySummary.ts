@@ -5,6 +5,7 @@ export interface FinanceMonthlySummary {
   fixedExpense: number;
   barberCommission: number;
   totalExpenses: number;
+  incomeAfterCommission: number;
   net: number;
 }
 
@@ -13,4 +14,3 @@ export interface BarberCommissionSummary {
   barberName: string;
   total: number;
 }
-

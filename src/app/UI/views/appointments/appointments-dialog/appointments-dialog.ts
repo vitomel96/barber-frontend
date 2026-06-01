@@ -40,6 +40,8 @@ import { TimeFormatPipe } from '../../../pipes/time-format.pipe';
   templateUrl: './appointments-dialog.html',
 })
 export class AppointmentsDialogComponent implements OnInit, OnDestroy {
+  private readonly slotIntervalMinutes = 5;
+
   isEditMode = false;
   appointment!: any;
   form!: FormGroup;
@@ -145,6 +147,21 @@ export class AppointmentsDialogComponent implements OnInit, OnDestroy {
     if (this.data?.barber) {
       this.form.patchValue({
         barber_id: this.data.barber.id
+      });
+    }
+
+    if (this.data?.barberId) {
+      this.form.patchValue({
+        barber_id: this.data.barberId
+      });
+    }
+
+    if (this.data?.start) {
+      const start = new Date(this.data.start);
+
+      this.form.patchValue({
+        date: start,
+        start_time: this.fromMinutes(start.getHours() * 60 + start.getMinutes())
       });
     }
   }
@@ -256,7 +273,11 @@ export class AppointmentsDialogComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const baseSlots = this.generateTimeSlots(barber.start_time, barber.end_time, 30);
+    const baseSlots = this.generateTimeSlots(
+      barber.start_time,
+      barber.end_time,
+      this.slotIntervalMinutes
+    );
     const barberEnd = this.toMinutes(barber.end_time);
 
     this.availableSlots = baseSlots.filter((slot) => {

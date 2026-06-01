@@ -47,6 +47,14 @@
 
   </h3>
 
+  <div class="cash-register-actions" *ngIf="isIncomeView">
+    <button mat-raised-button color="primary" type="button" (click)="openCashRegister()">
+      <mat-icon>point_of_sale</mat-icon>
+      Cobrar en caja
+    </button>
+    <span>Para ventas realizadas sin cita previa.</span>
+  </div>
+
   <!-- TOTAL -->
   <mat-card class="summary-card" *ngIf="isIncomeView || isExpenseView">
 
@@ -324,6 +332,10 @@
             </ng-container>
 
           </small>
+          <small *ngIf="record.category === 'CAJA_REGISTRADORA'">
+            Caja registradora -
+            {{ record.client ? (record.client.name + ' ' + (record.client.last_name || '')) : 'Cliente anónimo' }}
+          </small>
           <div class="record-invoice">
             <span class="invoice-name">{{ record.invoice_file_name || 'Sin factura adjunta' }}</span>
             <button
@@ -423,5 +435,4 @@
     </div>
   </div>
 </div>
-
 

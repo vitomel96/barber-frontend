@@ -10,6 +10,7 @@ import { FinanceMonthlyReport, TipsControlResponse } from '../FinanceReport';
 export abstract class FinanceGateway {
   abstract getRecords(type?: FinanceType, month?: string): Observable<FinanceRecord[]>;
   abstract createRecord(record: Partial<FinanceRecord>): Observable<FinanceRecord>;
+  abstract createCashRegisterSale(sale: any): Observable<FinanceRecord>;
   abstract updateRecord(id: string, record: Partial<FinanceRecord>): Observable<FinanceRecord>;
   abstract deleteRecord(id: string): Observable<void>;
   abstract getMonthlySummary(month?: string): Observable<FinanceMonthlySummary>;

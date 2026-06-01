@@ -12,6 +12,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 
 import { GenericFormModule } from '../../../../infraestructure/helpers/generic-form-module/generic-form.module';
 
@@ -20,6 +21,7 @@ import { FinanceType } from '../../../../domain/models/Finance/FinanceType';
 import { FinanceRecord } from '../../../../domain/models/Finance/FinanceRecord';
 
 import { BarberUseCase } from '../../../../domain/models/Barber/usecase/barberusecase';
+import { CashRegisterDialogComponent } from '../cash-register-dialog/cash-register-dialog';
 
 @Component({
   selector: 'app-finance-records',
@@ -35,7 +37,8 @@ import { BarberUseCase } from '../../../../domain/models/Barber/usecase/barberus
     MatSelectModule,
     MatAutocompleteModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatDialogModule
   ],
   templateUrl: './finance-records.html',
   styleUrl: './finance-records.scss'
@@ -75,7 +78,8 @@ getPaymentDay(date:string){
     private route: ActivatedRoute,
     private financeUseCase: FinanceUseCase,
     private barberUseCase: BarberUseCase,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -164,6 +168,19 @@ loadRecords(): void {
         this.barbers = barbers.filter((barber) => barber.is_active);
       },
       error: (error) => console.error(error)
+    });
+  }
+
+  openCashRegister(): void {
+    const dialogRef = this.dialog.open(CashRegisterDialogComponent, {
+      width: '820px',
+      maxWidth: '96vw'
+    });
+
+    dialogRef.afterClosed().subscribe((created) => {
+      if (created) {
+        this.loadRecords();
+      }
     });
   }
 

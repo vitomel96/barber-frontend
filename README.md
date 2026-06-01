@@ -36,6 +36,31 @@ ng build
 
 This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
 
+## Deployment
+
+Every push to `master` deploys the production frontend to Firebase Hosting through
+`.github/workflows/firebase-hosting-deploy.yml`.
+
+The GitHub repository must contain the Actions secret
+`FIREBASE_SERVICE_ACCOUNT_LEBARBER7777`. Configure it once with:
+
+```bash
+firebase init hosting:github
+```
+
+For a manual deployment from an authenticated workstation:
+
+```bash
+npm run deploy
+```
+
+Create commits with the same message and publish both repositories with one
+command:
+
+```bash
+npm run release -- "describe the change"
+```
+
 ## Running unit tests
 
 To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:

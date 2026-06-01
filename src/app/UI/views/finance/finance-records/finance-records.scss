@@ -38,6 +38,25 @@
   text-transform: capitalize;
 }
 
+.cash-register-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+.cash-register-actions button {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.cash-register-actions span {
+  color: #6b7280;
+  font-size: 13px;
+}
+
 /* TARJETA TOTAL */
 .summary-card {
   padding: 18px 22px;

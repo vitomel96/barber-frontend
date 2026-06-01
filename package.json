@@ -5,6 +5,8 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "deploy": "npm run build && firebase deploy --only hosting",
+    "release": "bash scripts/release.sh",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
